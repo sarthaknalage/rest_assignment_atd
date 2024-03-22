@@ -15,4 +15,8 @@ public interface InterStudentService {
 	
 // delete Student by providing its id and return type is boolean
 	Boolean deleteStudentById(Short id);
+
+//	utility functionality
+//	check student is already present or not
+	public Boolean isStudentPresent(Short id);
 }

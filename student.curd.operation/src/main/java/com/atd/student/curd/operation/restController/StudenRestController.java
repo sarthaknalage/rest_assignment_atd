@@ -42,20 +42,21 @@ public class StudenRestController {
 		return mobile.toString().length()==10;
 	}
 	
+	
 //	end point for inserting student entity
 	@PostMapping(value = "/save",consumes = "application/json", produces = "application/json")
-	ResponseEntity<Student> saveStudent(@RequestBody Student student){
+	ResponseEntity<Student> saveStudent(@RequestBody Student student)throws Exception{
 //		check the student object(all required pre-condtions)
-//		if(!checkStudentCompleteOrNot(student)) {
-//			throw new StudentNotComplete(null);
-//		}
-//		if(!checkStudentAgeValidity(student)) {
-//			throw new StudentAgeException(null);
-//		}
-//		if(!checkMobileDigitCount(student.getStdMobile())) {
-//			throw new MobileNumberException("Student with id "+ student.getStdRollNumber()+" enter incorrect mobile number wiht the count of "+student.getStdMobile().toString().length());
-//			
-//		}
+		if(!checkStudentCompleteOrNot(student)) {
+			throw new StudentNotComplete("Provided Student is no complete !! please fill all required details and then save it");
+		}
+		if(!checkStudentAgeValidity(student)) {
+			throw new StudentAgeException("Provided Student Age is "+student.getStdAge()+" which is not compatible !!");
+		}
+		if(!checkMobileDigitCount(student.getStdMobile())) {
+			throw new MobileNumberException("Student with id "+ student.getStdRollNumber()+" enter incorrect mobile number wiht the count of "+student.getStdMobile().toString().length());
+			
+		}
 		Student savedStudent=controllerStudent.insertStudent(student);
 		
 		return ResponseEntity.status(HttpStatus.OK).body(student);
@@ -72,17 +73,17 @@ public class StudenRestController {
 	}
 	
 	@PutMapping(value = "/update", consumes = "application/json", produces="application/json")
-	public ResponseEntity<Student> updateStudent(@RequestBody Student student){
-//		if(!checkStudentCompleteOrNot(student)) {
-//			throw new StudentNotComplete(null);
-//		}
-//		if(!checkStudentAgeValidity(student)) {
-//			throw new StudentAgeException(null);
-//		}
-//		if(!checkMobileDigitCount(student.getStdMobile())) {
-//			throw new MobileNumberException("Student with id "+ student.getStdRollNumber()+" enter incorrect mobile number wiht the count of "+student.getStdMobile().toString().length());
-//			
-//		}
+	public ResponseEntity<Student> updateStudent(@RequestBody Student student) throws Exception{
+		if(!checkStudentCompleteOrNot(student)) {
+			throw new StudentNotComplete(null);
+		}
+		if(!checkStudentAgeValidity(student)) {
+			throw new StudentAgeException(null);
+		}
+		if(!checkMobileDigitCount(student.getStdMobile())) {
+			throw new MobileNumberException("Student with id "+ student.getStdRollNumber()+" enter incorrect mobile number wiht the count of "+student.getStdMobile().toString().length());
+			
+		}
 		
 		Student updatedStudent= controllerStudent.updateStudent(student);
 		return ResponseEntity.status(HttpStatus.OK).body(updatedStudent);

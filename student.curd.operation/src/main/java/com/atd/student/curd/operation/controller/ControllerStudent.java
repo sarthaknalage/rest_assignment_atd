@@ -3,6 +3,7 @@ package com.atd.student.curd.operation.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.atd.student.curd.operation.customExceptions.StudentNotPresent;
 import com.atd.student.curd.operation.model.Student;
 import com.atd.student.curd.operation.service.InterStudentService;
 
@@ -25,7 +26,9 @@ public class ControllerStudent {
 	}
 	
 //	updating student object
-	public Student updateStudent(Student student) {
+	public Student updateStudent(Student student) throws StudentNotPresent {
+		if(!implStudentService.isStudentPresent(student.getStdRollNumber()))
+			throw new StudentNotPresent("Student with ID "+student.getStdRollNumber()+" is not exist please!!! do save first");
 		return implStudentService.updateStudent(student);
 	}
 //	deleting student object

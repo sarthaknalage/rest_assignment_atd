@@ -56,4 +56,9 @@ public class ImplStudentService implements InterStudentService {
 		return !availabilityStatus(id);
 	}
 
+	@Override
+	public Boolean isStudentPresent(Short id) {
+		return (id!=null)?interStudentOperations.existsById(id):false;
+	}
+
 }
