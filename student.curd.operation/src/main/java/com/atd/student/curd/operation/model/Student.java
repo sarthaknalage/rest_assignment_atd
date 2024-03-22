@@ -21,35 +21,50 @@ public class Student {
 	private Short stdRollNumber;
 	
 	@Column(name = "std_name")
-	private String sdtName;
+	private String stdName;
 	
 	@Column(name = "std_mobile")
 	private Long stdMobile;
 	
 	@Column(name = "std_mail")
 	private String stdMail;
-
+	
+	@Column(name="std_age")
+	private Short stdAge;
+	
+	
 	public Student() {
 		
 	}
-
-	public Student(String sdtName, Long stdMobile, String stdMail) {
+	
+	public Student(Short stdRollNumber, String sdtName, Long stdMobile, String stdMail, Short stdAge) {
 		super();
-		this.sdtName = sdtName;
+		this.stdRollNumber = stdRollNumber;
+		this.stdName = sdtName;
 		this.stdMobile = stdMobile;
 		this.stdMail = stdMail;
+		this.stdAge = stdAge;
+	}
+
+
+	public Short getStdAge() {
+		return stdAge;
+	}
+
+	public void setStdAge(Short stdAge) {
+		this.stdAge = stdAge;
 	}
 
 	public Short getStdRollNumber() {
 		return stdRollNumber;
 	}
 
-	public String getSdtName() {
-		return sdtName;
+	public String getStdName() {
+		return stdName;
 	}
 
-	public void setSdtName(String sdtName) {
-		this.sdtName = sdtName;
+	public void setStdName(String sdtName) {
+		this.stdName = sdtName;
 	}
 
 	public Long getStdMobile() {
@@ -70,8 +85,8 @@ public class Student {
 	
 	@Override
 	public String toString() {
-		return "Student [stdRollNumber=" + stdRollNumber + ", sdtName=" + sdtName + ", stdMobile=" + stdMobile
-				+ ", stdMail=" + stdMail + "]";
+		return "Student [stdRollNumber=" + stdRollNumber + ", sdtName=" + stdName + ", stdMobile=" + stdMobile
+				+ ", stdMail=" + stdMail + ", stdAge=" + stdAge + "]";
 	}
 	
 	

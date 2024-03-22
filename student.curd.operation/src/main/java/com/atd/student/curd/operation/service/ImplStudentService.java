@@ -46,19 +46,14 @@ public class ImplStudentService implements InterStudentService {
 
 //	Here we write utility logic to minimize the boiler plate code
 	public boolean availabilityStatus(Short id) {
-		boolean status=interStudentOperations.existsById(id);
-		if(status) {
-			return true;
-		}
-//		throw new StudentNotPresent("Given Requested Object with id"+ id +" is Not Present!!!");
-		return false;
+		return interStudentOperations.existsById(id);
 	}
 	@Override
 	public Boolean deleteStudentById(Short id) {
 		if(availabilityStatus(id)) {
 			interStudentOperations.deleteById(id);
 		}
-		return availabilityStatus(id);
+		return !availabilityStatus(id);
 	}
 
 }
