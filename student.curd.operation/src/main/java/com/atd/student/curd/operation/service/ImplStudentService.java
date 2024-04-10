@@ -38,8 +38,17 @@ public class ImplStudentService implements InterStudentService {
 
 //		Here need to check first student is present or not
 		if(availabilityStatus(student.getStdRollNumber())) {
-			Student studentdUpdated=interStudentOperations.save(student);
-			return studentdUpdated;
+//			best way is first retrieved it and then make changes inside that entity because it is present in the
+//			transient state that make changes reflected to database also avoid the problem of conflict
+			Student retrievedStudent=this.interStudentOperations.findById(student.getStdRollNumber()).get();
+//			make the changes
+			retrievedStudent.setStdName(student.getStdName());
+			retrievedStudent.setStdMobile(student.getStdMobile());
+			retrievedStudent.setStdMail(student.getStdMail());
+			retrievedStudent.setStdAge(student.getStdAge());
+//			Here ID Property is already set so need to set it one more time
+			Student studentUpdated=this.interStudentOperations.saveAndFlush(retrievedStudent);
+			return  studentUpdated;
 		}
 		return null;
 	}
